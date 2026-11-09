@@ -3,7 +3,7 @@
     "name": "SeLECT",
     "slug": "select",
     "owner": "galovic",
-    "version": "4.0.5",
+    "version": "4.1.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "select",
