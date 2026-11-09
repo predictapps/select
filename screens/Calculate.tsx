@@ -1,21 +1,23 @@
-import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useStatePersist } from 'use-state-persist'
 
 import { RootStackScreenProps } from '../navigation/types'
-import Label from '../components/Label'
-import Segment from '../components/Segment'
-import Hr from '../components/Hr'
+import Field from '../components/Field'
 import P from '../components/P'
 import { Model } from '../types'
-import Expand2 from '../components/Expand2'
+import Expand from '../components/Expand'
 import Button from '../components/Button'
 import Content from '../components/Content'
 import Modal from '../components/Modal'
 import ScreenHeader from '../components/ScreenHeader'
 import Text from '../components/Text'
 import { colors } from '../theme'
+
+const yesNo = (no = 0, yes = 1) => [
+  { label: 'NO', value: no },
+  { label: 'YES', value: yes },
+]
 
 const Calculate = ({ navigation }: RootStackScreenProps<'Calculate'>) => {
   const { bottom } = useSafeAreaInsets()
@@ -102,189 +104,132 @@ const Calculate = ({ navigation }: RootStackScreenProps<'Calculate'>) => {
       />
       <Content style={styles.content}>
         <View style={{ paddingBottom: bottom }}>
-          <Label
+          <Field
             title="Acute symptomatic seizure"
             subTitle="≤ 7 days after stroke"
-            onPress={() => navigation.navigate('P3')}
-          />
-          <Segment
-            options={[
-              { label: 'NO', value: Model.SeLECT2 },
-              { label: 'YES', value: Model.SeLECT_ASyS },
-            ]}
+            hint={'If "Yes" using SeLECT-ASyS model.'}
+            onInfo={() => navigation.navigate('P3')}
+            options={yesNo(Model.SeLECT2, Model.SeLECT_ASyS)}
             selected={p3}
-            onPress={setP3}
+            onChange={setP3}
           />
-          <Text style={styles.hint}>If "Yes" using SeLECT-ASyS model.</Text>
-          <Hr />
-          <Expand2
+          <Expand
             showLeft={p3 === Model.SeLECT2}
             left={
               <>
-                <Label
+                <Field
                   title="Early EEG"
-                  onPress={() => navigation.navigate('EarlyEEG')}
-                />
-                <Segment
-                  options={[
-                    { label: 'NO', value: Model.SeLECT2 },
-                    { label: 'YES', value: Model.SeLECT_EEG },
-                  ]}
+                  hint={
+                    'If "No" using SeLECT2.0 model, if "Yes" using SeLECT-EEG model.'
+                  }
+                  onInfo={() => navigation.navigate('EarlyEEG')}
+                  options={yesNo(Model.SeLECT2, Model.SeLECT_EEG)}
                   selected={earlyEEG}
-                  onPress={setEarlyEEG}
+                  onChange={setEarlyEEG}
                 />
-                <Text style={styles.hint}>
-                  If "No" using SeLECT2.0 model, if "Yes" using SeLECT-EEG
-                  model.
-                </Text>
-                <Hr />
-                <Expand2
+                <Expand
                   showLeft={earlyEEG === Model.SeLECT2}
                   left={<View />}
                   right={
                     <>
-                      <Label
+                      <Field
                         title="Regional slowing"
-                        onPress={() => navigation.navigate('RegionalSlowing')}
-                      />
-                      <Segment
-                        options={[
-                          { label: 'NO', value: 0 },
-                          { label: 'YES', value: 1 },
-                        ]}
+                        onInfo={() => navigation.navigate('RegionalSlowing')}
+                        options={yesNo()}
                         selected={regionalSlowing}
-                        onPress={setRegionalSlowing}
+                        onChange={setRegionalSlowing}
                       />
-                      <Hr />
-                      <Label
+                      <Field
                         title="Epileptiform Activity"
-                        onPress={() =>
+                        onInfo={() =>
                           navigation.navigate('EpileptiformActivity')
                         }
-                      />
-                      <Segment
-                        options={[
-                          { label: 'NO', value: 0 },
-                          { label: 'YES', value: 1 },
-                        ]}
+                        options={yesNo()}
                         selected={epileptiformActivity}
-                        onPress={setEpileptiformActivity}
+                        onChange={setEpileptiformActivity}
                       />
-                      <Hr />
                     </>
                   }
                 />
-                <Label
+                <Field
                   title="Severity of stroke"
                   subTitle="NIHSS at admission"
-                  onPress={() => navigation.navigate('P1')}
-                />
-                <Segment
+                  onInfo={() => navigation.navigate('P1')}
                   options={[
                     { label: '≤3', value: 0 },
                     { label: '4-10', value: 1 },
                     { label: '≥11', value: 2 },
                   ]}
                   selected={p1}
-                  onPress={setP1}
+                  onChange={setP1}
                 />
-                <Hr />
               </>
             }
             right={
               <>
-                <Label
+                <Field
                   title="Type of acute symptomatic seizure"
-                  onPress={() => navigation.navigate('P6')}
-                />
-                <Segment
+                  onInfo={() => navigation.navigate('P6')}
                   options={[
                     { label: 'Other/Unknown', value: 0 },
                     { label: 'Bilateral tonic-clonic', value: 1 },
                     { label: 'Status epilepticus', value: 4 },
                   ]}
                   selected={p6}
-                  onPress={setP6}
+                  onChange={setP6}
                 />
-                <Hr />
-                <Label
+                <Field
                   title="Timing of acute symptomatic seizure"
-                  onPress={() => navigation.navigate('P7')}
-                />
-                <Segment
+                  onInfo={() => navigation.navigate('P7')}
                   options={[
                     { label: 'Day 0', value: 1 },
                     { label: 'Day ≥ 1 or Unknown', value: 0 },
                   ]}
                   selected={p7}
-                  onPress={setP7}
+                  onChange={setP7}
                 />
-                <Hr />
               </>
             }
           />
-          <Label
+          <Field
             title="Large-artery atherosclerosis"
-            onPress={() => navigation.navigate('P2')}
-          />
-          <Segment
-            options={[
-              { label: 'NO', value: 0 },
-              { label: 'YES', value: 1 },
-            ]}
+            onInfo={() => navigation.navigate('P2')}
+            options={yesNo()}
             selected={p2}
-            onPress={setP2}
+            onChange={setP2}
           />
-          <Hr />
-          <Expand2
+          <Expand
             showLeft={p3 == Model.SeLECT2 || p2 === 0}
             left={<View />}
             right={
-              <>
-                <Label title="Sex" />
-                <Segment
-                  options={[
-                    { label: 'FEMALE', value: 1 },
-                    { label: 'MALE', value: 2 },
-                  ]}
-                  selected={p8}
-                  onPress={setP8}
-                />
-                <Hr />
-              </>
+              <Field
+                title="Sex"
+                options={[
+                  { label: 'FEMALE', value: 1 },
+                  { label: 'MALE', value: 2 },
+                ]}
+                selected={p8}
+                onChange={setP8}
+              />
             }
           />
-          <Label
+          <Field
             title="Cortical involvement"
-            onPress={() => navigation.navigate('P4')}
-          />
-          <Segment
-            options={[
-              { label: 'NO', value: 0 },
-              { label: 'YES', value: 2 },
-            ]}
+            onInfo={() => navigation.navigate('P4')}
+            options={yesNo(0, 2)}
             selected={p4}
-            onPress={setP4}
+            onChange={setP4}
           />
-          <Hr />
-          <Expand2
+          <Expand
             showLeft={p3 === Model.SeLECT2}
             left={
-              <>
-                <Label
-                  title="Territory of MCA involvement"
-                  onPress={() => navigation.navigate('P5')}
-                />
-                <Segment
-                  options={[
-                    { label: 'NO', value: 0 },
-                    { label: 'YES', value: 1 },
-                  ]}
-                  selected={p5}
-                  onPress={setP5}
-                />
-                <Hr />
-              </>
+              <Field
+                title="Territory of MCA involvement"
+                onInfo={() => navigation.navigate('P5')}
+                options={yesNo()}
+                selected={p5}
+                onChange={setP5}
+              />
             }
             right={<View />}
           />
@@ -302,21 +247,17 @@ const Calculate = ({ navigation }: RootStackScreenProps<'Calculate'>) => {
           >
             Calculate
           </Button>
-          <Text style={styles.total}>
-            Total points: {score}
-          </Text>
+          <Text style={styles.total}>Total points: {score}</Text>
         </View>
       </Content>
     </>
   )
 }
+
 const styles = StyleSheet.create({
   content: {
     paddingBottom: 20,
     paddingTop: 0,
-  },
-  hint: {
-    color: colors.gray[400],
   },
   calculate: {
     marginTop: 20,

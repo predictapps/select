@@ -1,4 +1,3 @@
-import React from 'react'
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native'
 
 import LinkingConfiguration from './LinkingConfiguration'

@@ -1,8 +1,4 @@
-import { BottomTabScreenProps as RNBottomTabScreenProps } from '@react-navigation/bottom-tabs'
-import {
-  CompositeScreenProps,
-  NavigatorScreenParams,
-} from '@react-navigation/native'
+import { NavigatorScreenParams } from '@react-navigation/native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Model } from '../types'
 
@@ -29,11 +25,9 @@ export type RootStackParamList = {
     score: number
   }
   Risk: undefined
-  Cosy: undefined
   RiskInfo: undefined
   CosyInfo: undefined
   BottomTab: NavigatorScreenParams<BottomTabParamList>
-  Terms: undefined
   NotFound: undefined
 }
 
@@ -45,20 +39,7 @@ export type BottomTabParamList = {
   Terms: undefined
 }
 
-export type BottomTabScreenProps<Screen extends keyof BottomTabParamList> =
-  CompositeScreenProps<
-    RNBottomTabScreenProps<BottomTabParamList, Screen>,
-    NativeStackScreenProps<RootStackParamList>
-  >
-
 export type PredictionTabParamList = {
   Risk: undefined
   Cosy: undefined
 }
-
-export type PredictionTabScreenProps<
-  Screen extends keyof PredictionTabParamList
-> = CompositeScreenProps<
-  RNBottomTabScreenProps<PredictionTabParamList, Screen>,
-  NativeStackScreenProps<RootStackParamList>
->

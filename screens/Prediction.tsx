@@ -1,4 +1,3 @@
-import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import {
@@ -43,8 +42,8 @@ const Prediction = ({
   route,
 }: RootStackScreenProps<'Prediction'>) => {
   const { score, model } = route.params
-  let cosy = cosyModels[model]
-  let risk = riskModels[model]
+  const cosy = cosyModels[model]
+  const risk = riskModels[model]
   return (
     <>
       <ScreenHeader

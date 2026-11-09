@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import Button from './Button'
 import { radius } from '../theme'
 
-interface Option {
+export interface Option {
   label: string
   value: number
 }

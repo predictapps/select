@@ -11,12 +11,10 @@ const sizes = {
   xl: 28,
 }
 
-export type IconSize = keyof typeof sizes
-
 export interface IconProps {
   name: IconName
   color?: string
-  size?: IconSize
+  size?: keyof typeof sizes
 }
 
 const Icon = ({ name, color = colors.muted[500], size = 'sm' }: IconProps) => (

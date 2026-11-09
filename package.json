@@ -8,12 +8,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "jest --watchAll",
     "deploy:web": "yarn && BASE_URL=\"/select\" expo export --platform web && gh-pages -d dist",
     "postinstall": "patch-package"
-  },
-  "jest": {
-    "preset": "jest-expo"
   },
   "dependencies": {
     "@expo/metro-runtime": "~58.0.17",

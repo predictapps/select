@@ -1,36 +1,31 @@
-import React from 'react'
-import { Image, ScrollView, StyleSheet, View } from 'react-native'
-import ScreenHeader from '../components/ScreenHeader'
+import { Image, StyleSheet, View } from 'react-native'
 
 import B from '../components/B'
+import InfoScreen from '../components/InfoScreen'
 import P from '../components/P'
 
-import { RootStackScreenProps } from '../navigation/types'
-
-const P1 = ({ navigation }: RootStackScreenProps<'P1'>) => (
-  <>
-    <ScreenHeader
-      title="Stroke severity"
-      onBack={() => navigation.navigate('Calculate')}
+const P1 = () => (
+  <InfoScreen title="Stroke severity" style={styles.page}>
+    <View style={styles.intro}>
+      <P>
+        Stroke severity is measured with the <B>NIH Stroke Scale (NIHSS)</B>{' '}
+        at admission.
+      </P>
+    </View>
+    <Image
+      source={require('../assets/p1.jpeg')}
+      resizeMode="contain"
+      alt="NIH Stroke Scale"
+      style={styles.image}
     />
-    <ScrollView>
-      <View style={styles.intro}>
-        <P>
-          Stroke severity is measured with the <B>NIH Stroke Scale (NIHSS)</B>{' '}
-          at admission.
-        </P>
-      </View>
-      <Image
-        source={require('../assets/p1.jpeg')}
-        resizeMode="contain"
-        alt="NIH Stroke Scale"
-        style={styles.image}
-      />
-    </ScrollView>
-  </>
+  </InfoScreen>
 )
 
 const styles = StyleSheet.create({
+  page: {
+    paddingHorizontal: 0,
+    paddingVertical: 0,
+  },
   intro: {
     paddingHorizontal: 20,
     paddingVertical: 12,

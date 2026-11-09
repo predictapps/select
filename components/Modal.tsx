@@ -1,4 +1,4 @@
-import React from 'react'
+import { ReactNode } from 'react'
 import {
   Modal as RNModal,
   Pressable,
@@ -15,8 +15,8 @@ interface ModalProps {
   isOpen: boolean
   onClose: () => void
   title: string
-  footer: React.ReactNode
-  children: React.ReactNode
+  footer: ReactNode
+  children: ReactNode
 }
 
 const Modal = ({ isOpen, onClose, title, footer, children }: ModalProps) => {

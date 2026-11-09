@@ -1,46 +1,34 @@
-import React from 'react'
 import { StyleSheet } from 'react-native'
-import Content from '../components/Content'
-import Heading from '../components/Heading'
-import ScreenHeader from '../components/ScreenHeader'
 
+import Heading from '../components/Heading'
+import InfoScreen from '../components/InfoScreen'
 import P from '../components/P'
 
-import { RootStackScreenProps } from '../navigation/types'
-
-const RiskInfo = ({ navigation }: RootStackScreenProps<'RiskInfo'>) => (
-  <>
-    <ScreenHeader
-      title="Risk of late seizures"
-      onBack={() => {
-        if (navigation.canGoBack()) {
-          navigation.goBack()
-        } else {
-          navigation.navigate('Calculate')
-        }
-      }}
-    />
-    <Content style={styles.content}>
-      <P>
-        SeLECT predicts the absolute cumulative risk of late seizures after
-        stroke. Late seizures are defined as spontaneous seizures occurring &gt;
-        7 days after ischemic stroke. The 95% confidence interval for the risk
-        estimates is given in brackets.
-      </P>
-      <Heading size="sm">Prediction time</Heading>
-      <P>
-        The user can choose a custom prediction time in months using the slider.
-        The range is between 0 and 60 months.
-      </P>
-      <Heading size="sm">Prediction graph</Heading>
-      <P>
-        The prediction graph displays Kaplan Meier risk estimates for the
-        calculated SeLECT value. X-axis is time in months, Y-axis is cumulative
-        absolute risk in percent. The dotted line is the 95% confidence
-        interval.
-      </P>
-    </Content>
-  </>
+const RiskInfo = () => (
+  <InfoScreen
+    title="Risk of late seizures"
+    style={styles.content}
+    backToPrevious
+  >
+    <P>
+      SeLECT predicts the absolute cumulative risk of late seizures after
+      stroke. Late seizures are defined as spontaneous seizures occurring &gt;
+      7 days after ischemic stroke. The 95% confidence interval for the risk
+      estimates is given in brackets.
+    </P>
+    <Heading size="sm">Prediction time</Heading>
+    <P>
+      The user can choose a custom prediction time in months using the slider.
+      The range is between 0 and 60 months.
+    </P>
+    <Heading size="sm">Prediction graph</Heading>
+    <P>
+      The prediction graph displays Kaplan Meier risk estimates for the
+      calculated SeLECT value. X-axis is time in months, Y-axis is cumulative
+      absolute risk in percent. The dotted line is the 95% confidence
+      interval.
+    </P>
+  </InfoScreen>
 )
 
 const styles = StyleSheet.create({

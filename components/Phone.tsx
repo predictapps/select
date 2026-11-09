@@ -1,4 +1,4 @@
-import React from 'react'
+import { ReactNode } from 'react'
 import {
   ImageBackground,
   Platform,
@@ -10,7 +10,7 @@ import {
 
 import { colors, WIDE_SCREEN } from '../theme'
 
-const Phone = ({ children }: { children: React.ReactNode }) => {
+const Phone = ({ children }: { children: ReactNode }) => {
   const { width } = useWindowDimensions()
   if (Platform.OS !== 'web') {
     return <>{children}</>
