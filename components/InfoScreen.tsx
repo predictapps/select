@@ -26,7 +26,7 @@ const InfoScreen = ({
     if (backToPrevious && navigation.canGoBack()) {
       navigation.goBack()
     } else {
-      navigation.navigate('Calculate')
+      navigation.navigate('Calculate', undefined, { pop: true })
     }
   }
   return (

@@ -48,7 +48,9 @@ const Prediction = ({
     <>
       <ScreenHeader
         title={`${modelName[model]} Score ${score}`}
-        onBack={() => navigation.navigate('Calculate')}
+        onBack={() =>
+          navigation.navigate('Calculate', undefined, { pop: true })
+        }
       />
 
       <BottomTab.Navigator
