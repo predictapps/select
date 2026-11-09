@@ -18,15 +18,18 @@ const label = {
 const Tooltip = ({
   value,
   position,
+  dx = 0,
 }: {
   value?: ChartDataPoint
   position?: XYValue
+  dx?: number
 }) => {
   if (!value || !position) {
     return null
   }
 
-  const { x, y } = position
+  const x = position.x + dx
+  const { y } = position
   return (
     <>
       <Rect

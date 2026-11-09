@@ -1,6 +1,9 @@
 import { useMemo } from 'react'
 
-import PredictionView, { toPoints } from '../components/PredictionView'
+import PredictionView, {
+  extrapolationNote,
+  toPoints,
+} from '../components/PredictionView'
 import { ModelData } from '../types'
 
 interface CosyProps {
@@ -29,6 +32,12 @@ const Cosy = ({ score, model }: CosyProps) => {
       title="Chance of seizures in the next year"
       infoScreen="CosyInfo"
       caption="months seizure-free after stroke"
+      note={extrapolationNote(
+        model.supportedToMonth?.[score],
+        24,
+        'later values are extrapolated from the model.'
+      )}
+      tooltipShiftFrom={22}
     />
   )
 }

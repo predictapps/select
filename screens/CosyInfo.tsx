@@ -9,8 +9,7 @@ const CosyInfo = () => (
   <InfoScreen title="Chance of seizures" style={styles.content} backToPrevious>
     <P>
       Chance of an occurrence of a seizure in the next year (COSY) was
-      calculated calculated using the SeLECT model. Many regulators consider a
-      COSY below 20-40% acceptable for private driving and below 2% for
+      calculated using the SeLECT model. Many regulators consider a COSY below 20-40% acceptable for private driving and below 2% for
       professional driving [ref 1].
     </P>
     <P>
@@ -33,7 +32,7 @@ const CosyInfo = () => (
       hemianopia, weakness, or cognitive deficits. These factors are not
       included in the SeLECT score and need to be taken into account for an
       individualised approach considering the safety to drive in stroke
-      surviors.
+      survivors.
     </P>
     <SectionTitle>Reference manuscript:</SectionTitle>
     <Link href="https://road-safety.transport.ec.europa.eu/system/files/2021-07/epilepsy_and_driving_in_europe_final_report_v2_en.pdf">

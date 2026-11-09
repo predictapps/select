@@ -1,6 +1,9 @@
 import { useMemo } from 'react'
 
-import PredictionView, { toPoints } from '../components/PredictionView'
+import PredictionView, {
+  extrapolationNote,
+  toPoints,
+} from '../components/PredictionView'
 import { ModelData } from '../types'
 
 interface RiskProps {
@@ -22,11 +25,17 @@ const Risk = ({ score, model }: RiskProps) => {
       values={values}
       mins={mins}
       maxs={maxs}
-      maxMonth={60}
-      monthTicks={6}
+      maxMonth={120}
+      monthTicks={11}
       title="Risk of late seizures"
       infoScreen="RiskInfo"
       caption="months after stroke"
+      note={extrapolationNote(
+        model.supportedToMonth?.[score],
+        120,
+        'later values (up to 10 years) are extrapolated with a parametric model.'
+      )}
+      tooltipShiftFrom={110}
       tooltipFollowsSlider
     />
   )
