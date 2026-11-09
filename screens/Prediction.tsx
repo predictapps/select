@@ -8,6 +8,8 @@ import Icon from '../components/Icon'
 import ScreenHeader from '../components/ScreenHeader'
 import Risk from '../screens/Risk'
 import Cosy from '../screens/Cosy'
+import CEEG from '../screens/CEEG'
+import { SEEGPhenotype } from '../models/cEEG'
 import { Model } from '../types'
 
 import COSY_SeLECT2 from '../models/COSY_SeLECT2'
@@ -41,7 +43,14 @@ const Prediction = ({
   navigation,
   route,
 }: RootStackScreenProps<'Prediction'>) => {
-  const { score, model } = route.params
+  const {
+    score,
+    model,
+    phenotype = SEEGPhenotype.Normal,
+    select20 = 0,
+    regionalSlowing = 0,
+    epileptiformActivity = 0,
+  } = route.params
   const cosy = cosyModels[model]
   const risk = riskModels[model]
   return (
@@ -82,6 +91,26 @@ const Prediction = ({
         >
           {() => <Cosy score={score} model={cosy} />}
         </BottomTab.Screen>
+        {model === Model.SeLECT_EEG && (
+          <BottomTab.Screen
+            name="CEEG"
+            options={{
+              tabBarLabel: 'cEEG yield',
+              tabBarIcon: ({ color }) => (
+                <Icon name="pulse" color={color} size="xl" />
+              ),
+            }}
+          >
+            {() => (
+              <CEEG
+                phenotype={phenotype}
+                select20={select20}
+                regionalSlowing={regionalSlowing}
+                epileptiformActivity={epileptiformActivity}
+              />
+            )}
+          </BottomTab.Screen>
+        )}
       </BottomTab.Navigator>
     </>
   )

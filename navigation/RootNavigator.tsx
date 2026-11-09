@@ -17,6 +17,7 @@ import CosyInfo from '../screens/CosyInfo'
 import EarlyEEG from '../screens/EarlyEEG'
 import RegionalSlowing from '../screens/RegionalSlowing'
 import EpileptiformActivity from '../screens/EpileptiformActivity'
+import SEEGPhenotypeInfo from '../screens/SEEGPhenotypeInfo'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -37,6 +38,7 @@ const RootNavigator = () => (
         name="EpileptiformActivity"
         component={EpileptiformActivity}
       />
+      <Stack.Screen name="SEEGPhenotypeInfo" component={SEEGPhenotypeInfo} />
       <Stack.Screen name="RiskInfo" component={RiskInfo} />
       <Stack.Screen name="CosyInfo" component={CosyInfo} />
       <Stack.Screen

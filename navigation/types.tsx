@@ -1,5 +1,6 @@
 import { NavigatorScreenParams } from '@react-navigation/native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { SEEGPhenotype } from '../models/cEEG'
 import { Model } from '../types'
 
 declare global {
@@ -20,9 +21,14 @@ export type RootStackParamList = {
   EarlyEEG: undefined
   RegionalSlowing: undefined
   EpileptiformActivity: undefined
+  SEEGPhenotypeInfo: undefined
   Prediction: NavigatorScreenParams<PredictionTabParamList> & {
     model: Model
     score: number
+    phenotype?: SEEGPhenotype
+    select20?: number
+    regionalSlowing?: number
+    epileptiformActivity?: number
   }
   Risk: undefined
   RiskInfo: undefined
@@ -42,4 +48,5 @@ export type BottomTabParamList = {
 export type PredictionTabParamList = {
   Risk: undefined
   Cosy: undefined
+  CEEG: undefined
 }

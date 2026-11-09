@@ -7,12 +7,23 @@ import Field from '../components/Field'
 import P from '../components/P'
 import { Model } from '../types'
 import Expand from '../components/Expand'
+import Hr from '../components/Hr'
+import Label from '../components/Label'
+import MultiSelect from '../components/MultiSelect'
 import Button from '../components/Button'
 import Content from '../components/Content'
 import Modal from '../components/Modal'
 import ScreenHeader from '../components/ScreenHeader'
 import Text from '../components/Text'
 import { colors } from '../theme'
+import {
+  dominantPhenotype,
+  impliesEpileptiformActivity,
+  impliesRegionalSlowing,
+  phenotypeChips,
+  phenotypeLabel,
+  SEEGPhenotype,
+} from '../models/cEEG'
 
 const yesNo = (no = 0, yes = 1) => [
   { label: 'NO', value: no },
@@ -43,6 +54,21 @@ const Calculate = ({ navigation }: RootStackScreenProps<'Calculate'>) => {
     'epileptiformActivity',
     0
   )
+  const [seegPhenotypes, setSeegPhenotypes] = useStatePersist<SEEGPhenotype[]>(
+    'seegPhenotypes',
+    []
+  )
+  const onPhenotypes = (values: SEEGPhenotype[]) => {
+    setSeegPhenotypes(values)
+    if (values.some((v) => impliesEpileptiformActivity.has(v))) {
+      setEpileptiformActivity(1)
+    }
+    if (values.some((v) => impliesRegionalSlowing.has(v))) {
+      setRegionalSlowing(1)
+    }
+  }
+  const phenotype = dominantPhenotype(seegPhenotypes)
+  const select20 = p1 + p2 + p4 + p5
 
   let score = 0
   let model: Model
@@ -63,10 +89,10 @@ const Calculate = ({ navigation }: RootStackScreenProps<'Calculate'>) => {
     }
   } else if (earlyEEG === Model.SeLECT_EEG) {
     model = Model.SeLECT_EEG
-    score = p1 + p2 + p4 + p5 + regionalSlowing + epileptiformActivity
+    score = select20 + regionalSlowing + epileptiformActivity
   } else {
     model = Model.SeLECT2
-    score = p1 + p2 + p4 + p5
+    score = select20
   }
   return (
     <>
@@ -148,6 +174,23 @@ const Calculate = ({ navigation }: RootStackScreenProps<'Calculate'>) => {
                         selected={epileptiformActivity}
                         onChange={setEpileptiformActivity}
                       />
+                      <Label
+                        title="sEEG phenotype"
+                        subTitle="Based on early short EEG (ACNS terminology). Multiple selections allowed."
+                        onPress={() => navigation.navigate('SEEGPhenotypeInfo')}
+                      />
+                      <MultiSelect
+                        options={phenotypeChips.map((value) => ({
+                          value,
+                          label: phenotypeLabel[value],
+                        }))}
+                        selected={seegPhenotypes}
+                        onChange={onPhenotypes}
+                      />
+                      <Text style={styles.dominant}>
+                        Dominant finding: {phenotypeLabel[phenotype]}
+                      </Text>
+                      <Hr />
                     </>
                   }
                 />
@@ -242,6 +285,10 @@ const Calculate = ({ navigation }: RootStackScreenProps<'Calculate'>) => {
                 model,
                 score,
                 screen: 'Risk',
+                phenotype,
+                select20,
+                regionalSlowing,
+                epileptiformActivity,
               })
             }}
           >
@@ -258,6 +305,10 @@ const styles = StyleSheet.create({
   content: {
     paddingBottom: 20,
     paddingTop: 0,
+  },
+  dominant: {
+    color: colors.gray[500],
+    marginTop: 8,
   },
   calculate: {
     marginTop: 20,
