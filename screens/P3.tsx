@@ -1,12 +1,8 @@
 import React from 'react'
-import {
-  Heading,
-  HStack,
-  Icon,
-  IconButton,
-  Link,
-  ScrollView,
-} from 'native-base'
+import Content from '../components/Content'
+import Heading from '../components/Heading'
+import Link from '../components/Link'
+import ScreenHeader from '../components/ScreenHeader'
 
 import B from '../components/B'
 import P from '../components/P'
@@ -15,16 +11,11 @@ import { RootStackScreenProps } from '../navigation/types'
 
 const P3 = ({ navigation }: RootStackScreenProps<'P3'>) => (
   <>
-    <HStack bg="primary.500" safeAreaTop pr="50px" alignItems="center">
-      <IconButton
-        icon={<Icon name="arrow-left" color="white" size="xl" />}
-        onPress={() => navigation.navigate('Calculate')}
-      />
-      <Heading flex={1} textAlign="center" color="white">
-        Acute symptomatic seizure
-      </Heading>
-    </HStack>
-    <ScrollView px="5" py="3">
+    <ScreenHeader
+      title="Acute symptomatic seizure"
+      onBack={() => navigation.navigate('Calculate')}
+    />
+    <Content>
       <P>
         Acute symptomatic seizures, also known as “early” seizures, are defined
         as <B>seizures occurring within 7 days</B> of the ischemic stroke.
@@ -35,7 +26,7 @@ const P3 = ({ navigation }: RootStackScreenProps<'P3'>) => (
         al. Recommendation for a definition of acute symptomatic seizure.
         Epilepsia 2010; 51: 671-675.
       </Link>
-    </ScrollView>
+    </Content>
   </>
 )
 

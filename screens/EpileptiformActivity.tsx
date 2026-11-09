@@ -1,32 +1,22 @@
 import React from 'react'
-import {
-  Heading,
-  HStack,
-  Icon,
-  IconButton,
-  Link,
-  ScrollView,
-} from 'native-base'
+import Content from '../components/Content'
+import Heading from '../components/Heading'
+import Link from '../components/Link'
+import ScreenHeader from '../components/ScreenHeader'
 
 import { RootStackScreenProps } from '../navigation/types'
 import P from '../components/P'
 import Li from '../components/Li'
-import Sup from '../components/Sup'
 
 const EpileptiformActivity = ({
   navigation,
 }: RootStackScreenProps<'EpileptiformActivity'>) => (
   <>
-    <HStack bg="primary.500" safeAreaTop pr="50px" alignItems="center">
-      <IconButton
-        icon={<Icon name="arrow-left" color="white" size="xl" />}
-        onPress={() => navigation.navigate('Calculate')}
-      />
-      <Heading flex={1} textAlign="center" color="white">
-        Epileptiform activity
-      </Heading>
-    </HStack>
-    <ScrollView px="5" py="3">
+    <ScreenHeader
+      title="Epileptiform activity"
+      onBack={() => navigation.navigate('Calculate')}
+    />
+    <Content>
       <P>Epileptiform activity is defined as either:</P>
       <Li>Interictal epileptiform discharges¹</Li>
       <Li>Lateralized or generalized periodic discharges (LPDs, GPDs)²</Li>
@@ -60,7 +50,7 @@ const EpileptiformActivity = ({
           retrospective study. The Lancet Neurology. 2016;15(10):1054-1062.
         </Link>
       </Li>
-    </ScrollView>
+    </Content>
   </>
 )
 

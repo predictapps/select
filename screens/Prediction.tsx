@@ -1,11 +1,12 @@
 import React from 'react'
-import { Heading, IconButton, Icon, HStack } from 'native-base'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import {
   PredictionTabParamList,
   RootStackScreenProps,
 } from '../navigation/types'
+import Icon from '../components/Icon'
+import ScreenHeader from '../components/ScreenHeader'
 import Risk from '../screens/Risk'
 import Cosy from '../screens/Cosy'
 import { Model } from '../types'
@@ -46,15 +47,10 @@ const Prediction = ({
   let risk = riskModels[model]
   return (
     <>
-      <HStack safeAreaTop bg="primary.500" pr="50px">
-        <IconButton
-          icon={<Icon name="arrow-left" color="white" size="xl" />}
-          onPress={() => navigation.navigate('Calculate')}
-        />
-        <Heading alignSelf="center" flex={1} textAlign="center" color="white">
-          {modelName[model]} Score {score}
-        </Heading>
-      </HStack>
+      <ScreenHeader
+        title={`${modelName[model]} Score ${score}`}
+        onBack={() => navigation.navigate('Calculate')}
+      />
 
       <BottomTab.Navigator
         screenOptions={{

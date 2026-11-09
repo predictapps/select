@@ -1,28 +1,19 @@
 import React from 'react'
-import {
-  Heading,
-  HStack,
-  Icon,
-  IconButton,
-  Link,
-  ScrollView,
-} from 'native-base'
+import Content from '../components/Content'
+import Heading from '../components/Heading'
+import Link from '../components/Link'
+import ScreenHeader from '../components/ScreenHeader'
 
 import { RootStackScreenProps } from '../navigation/types'
 import P from '../components/P'
 
 const P6 = ({ navigation }: RootStackScreenProps<'P6'>) => (
   <>
-    <HStack bg="primary.500" safeAreaTop pr="50px" alignItems="center">
-      <IconButton
-        icon={<Icon name="arrow-left" color="white" size="xl" />}
-        onPress={() => navigation.navigate('Calculate')}
-      />
-      <Heading flex={1} textAlign="center" color="white">
-        Type of acute symptomatic seizure
-      </Heading>
-    </HStack>
-    <ScrollView px="5" py="3">
+    <ScreenHeader
+      title="Type of acute symptomatic seizure"
+      onBack={() => navigation.navigate('Calculate')}
+    />
+    <Content>
       <P>
         Acute symptomatic seizure types are categorised as focal to bilateral
         tonic-clonic, status epilepticus, or other according to current ILAE
@@ -59,7 +50,7 @@ const P6 = ({ navigation }: RootStackScreenProps<'P6'>) => (
           retrospective study. The Lancet Neurology. 2016;15(10):1054-1062.
         </Link>
       </P>
-    </ScrollView>
+    </Content>
   </>
 )
 

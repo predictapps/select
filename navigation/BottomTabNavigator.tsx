@@ -1,7 +1,7 @@
 import React from 'react'
-import { Icon } from 'native-base'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
+import Icon from '../components/Icon'
 import About from '../screens/About'
 import Terms from '../screens/Terms'
 import { BottomTabParamList } from './types'

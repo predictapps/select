@@ -1,12 +1,8 @@
 import React from 'react'
-import {
-  Heading,
-  HStack,
-  Icon,
-  IconButton,
-  Link,
-  ScrollView,
-} from 'native-base'
+import Content from '../components/Content'
+import Link from '../components/Link'
+import ScreenHeader from '../components/ScreenHeader'
+import SectionTitle from '../components/SectionTitle'
 
 import B from '../components/B'
 import Li from '../components/Li'
@@ -16,16 +12,12 @@ import { RootStackScreenProps } from '../navigation/types'
 
 const P2 = ({ navigation }: RootStackScreenProps<'P2'>) => (
   <>
-    <HStack bg="primary.500" safeAreaTop alignItems="center">
-      <IconButton
-        icon={<Icon name="arrow-left" color="white" size="xl" />}
-        onPress={() => navigation.navigate('Calculate')}
-      />
-      <Heading flex={1} textAlign="center" color="white">
-        Large-artery atherosclerosis
-      </Heading>
-    </HStack>
-    <ScrollView px="5" py="3">
+    <ScreenHeader
+      title="Large-artery atherosclerosis"
+      onBack={() => navigation.navigate('Calculate')}
+      centerTitle={false}
+    />
+    <Content>
       <P>
         The item “<B>Large-artery atherosclerosis</B>” determines, whether this
         is the presumed aetiology of stroke. Stroke aetiology is categorized
@@ -45,9 +37,7 @@ const P2 = ({ navigation }: RootStackScreenProps<'P2'>) => (
         {'\n'} c. Incomplete evaluation
       </Li>
 
-      <Heading size="md" my="2">
-        Definition of large-artery atherosclerosis
-      </Heading>
+      <SectionTitle>Definition of large-artery atherosclerosis</SectionTitle>
       <P>
         These patients will have clinical and brain imaging findings of either{' '}
         <B>significant (&gt;50%) stenosis or occlusion</B> of a major brain
@@ -67,9 +57,7 @@ const P2 = ({ navigation }: RootStackScreenProps<'P2'>) => (
         atherosclerosis cannot be made if duplex or arteriographic studies are
         normal or show only minimal changes.
       </P>
-      <Heading size="md" py={2}>
-        Reference
-      </Heading>
+      <SectionTitle>Reference</SectionTitle>
       <P>
         <Link href="https://www.ahajournals.org/doi/abs/10.1161/01.str.24.1.35">
           Adams HP, Bendixen BH, Kappelle LJ, Biller J, Love BB, Gordon DL, et
@@ -78,7 +66,7 @@ const P2 = ({ navigation }: RootStackScreenProps<'P2'>) => (
           Acute Stroke Treatment. Stroke 1993; 24: 35-41.
         </Link>
       </P>
-    </ScrollView>
+    </Content>
   </>
 )
 

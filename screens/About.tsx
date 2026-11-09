@@ -1,11 +1,8 @@
-import {
-  Heading,
-  HStack,
-  Icon,
-  IconButton,
-  Link,
-  ScrollView,
-} from 'native-base'
+import { StyleSheet } from 'react-native'
+import Content from '../components/Content'
+import Link from '../components/Link'
+import ScreenHeader from '../components/ScreenHeader'
+import SectionTitle from '../components/SectionTitle'
 
 import Li from '../components/Li'
 import P from '../components/P'
@@ -15,19 +12,12 @@ import Hr from '../components/Hr'
 
 const About = ({ navigation }: BottomTabScreenProps<'About'>) => (
   <>
-    <HStack bg="primary.500" safeAreaTop pr="50px" alignItems="center">
-      <IconButton
-        icon={<Icon name="arrow-left" color="white" size="xl" />}
-        onPress={() => navigation.navigate('Calculate')}
-      />
-      <Heading flex={1} textAlign="center" color="white">
-        About
-      </Heading>
-    </HStack>
-    <ScrollView px="5" pb={10}>
-      <Heading size="md" py="2">
-        Eligibility
-      </Heading>
+    <ScreenHeader
+      title="About"
+      onBack={() => navigation.navigate('Calculate')}
+    />
+    <Content style={styles.content}>
+      <SectionTitle>Eligibility</SectionTitle>
       <P>SeLECT should only be used in people</P>
       <Li>who have suffered an ischemic stroke AND</Li>
       <Li>who are adults aged above 18 years.</Li>
@@ -40,25 +30,19 @@ const About = ({ navigation }: BottomTabScreenProps<'About'>) => (
         cerebral venous thrombosis, history of severe traumatic brain injury,
         history of brain surgery, etc.)
       </Li>
-      <Heading size="md" py="2">
-        Limitations
-      </Heading>
+      <SectionTitle>Limitations</SectionTitle>
       <Li>
         SeLECT can aid prognostication of remote symptomatic seizure risk after
         ischemic stroke but its clinical usefulness to influence medical
         decisions has not been tested.
       </Li>
-      <Heading size="md" py="2">
-        Prediction
-      </Heading>
+      <SectionTitle>Prediction</SectionTitle>
       <Li>
         SeLECT provides time-dependent predictions for the absolute risk of
         remote symptomatic seizures after ischemic stroke according to the total
         SeLECT value. 95% confidence intervals (CI) are also displayed.
       </Li>
-      <Heading size="md" py="2">
-        Performance
-      </Heading>
+      <SectionTitle>Performance</SectionTitle>
       <Li>
         SeLECT was developed and validated in a multicentre registry
         (SeLECT-registry) of patients with ischemic stroke. The prediction
@@ -74,9 +58,7 @@ const About = ({ navigation }: BottomTabScreenProps<'About'>) => (
         and observed data.
       </Li>
       <Hr />
-      <Heading size="md" py="2">
-        Reference manuscript:
-      </Heading>
+      <SectionTitle>Reference manuscript:</SectionTitle>
       <Link href="https://www.sciencedirect.com/science/article/pii/S1474442217304040">
         Galovic, M. et al. Prediction of late seizures after ischaemic stroke
         with a novel prognostic model (the SeLECT score): a multivariable
@@ -94,8 +76,15 @@ const About = ({ navigation }: BottomTabScreenProps<'About'>) => (
         Schubert, KM et al. Implications for driving based on the risk of
         seizures after ischemic stroke. JNNP (2024, in press).
       </P>
-    </ScrollView>
+    </Content>
   </>
 )
+
+const styles = StyleSheet.create({
+  content: {
+    paddingBottom: 40,
+    paddingTop: 0,
+  },
+})
 
 export default About

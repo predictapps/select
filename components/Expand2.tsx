@@ -1,6 +1,5 @@
-import { View } from 'native-base'
 import { useEffect, useRef, useState } from 'react'
-import { Animated, useWindowDimensions } from 'react-native'
+import { Animated, StyleSheet, useWindowDimensions, View } from 'react-native'
 
 interface ExpandProps {
   showLeft: boolean
@@ -92,7 +91,7 @@ const Expand = ({ showLeft, left, right }: ExpandProps) => {
   }, [showLeft])
 
   return (
-    <View overflow={'hidden'}>
+    <View style={styles.clip}>
       <Animated.View
         style={{
           height,
@@ -104,8 +103,7 @@ const Expand = ({ showLeft, left, right }: ExpandProps) => {
         }}
       >
         <View
-          w="100%"
-          position={'absolute'}
+          style={styles.pane}
           onLayout={(e) => {
             setWidth(e.nativeEvent.layout.width)
             setHeightLeft(e.nativeEvent.layout.height)
@@ -114,9 +112,7 @@ const Expand = ({ showLeft, left, right }: ExpandProps) => {
           {left}
         </View>
         <View
-          w="100%"
-          left={width}
-          position={'absolute'}
+          style={[styles.pane, { left: width }]}
           onLayout={(e) => setHeightRight(e.nativeEvent.layout.height)}
         >
           {right}
@@ -125,5 +121,15 @@ const Expand = ({ showLeft, left, right }: ExpandProps) => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  clip: {
+    overflow: 'hidden',
+  },
+  pane: {
+    position: 'absolute',
+    width: '100%',
+  },
+})
 
 export default Expand

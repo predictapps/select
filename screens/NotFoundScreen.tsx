@@ -1,4 +1,7 @@
-import { Heading, Text, View } from 'native-base'
+import { View } from 'react-native'
+
+import Heading from '../components/Heading'
+import Text from '../components/Text'
 import { RootStackScreenProps } from '../navigation/types'
 
 const NotFoundScreen = ({ navigation }: RootStackScreenProps<'NotFound'>) => (

@@ -1,28 +1,19 @@
 import React, { useMemo, useState } from 'react'
 import {
-  Heading,
-  IconButton,
-  Icon,
-  HStack,
-  Slider,
-  VStack,
-  Text,
-  View,
-} from 'native-base'
-import {
   Chart,
   Line,
   HorizontalAxis,
   VerticalAxis,
 } from 'react-native-responsive-linechart'
 
-import { theme } from '../NativeBase'
+import { colors } from '../theme'
 import { useNavigation } from '@react-navigation/native'
 import { ModelData } from '../types'
+import PredictionPanel from '../components/PredictionPanel'
 import Tooltip from '../components/Tooltip'
 
-const primary = theme.colors.primary[500]
-const primary800 = theme.colors.primary[800]
+const primary = colors.primary[500]
+const primary800 = colors.primary[800]
 
 interface CosyProps {
   model: ModelData
@@ -140,57 +131,17 @@ const Cosy: React.FC<CosyProps> = ({ score, model }) => {
           onTooltipSelect={(_, i) => setSelected(i)}
         />
       </Chart>
-      <View mx="5" mt="3">
-        <HStack alignItems="center">
-          <Heading flex={1}>Chance of seizures in the next year</Heading>
-          <IconButton
-            icon={<Icon name="information" />}
-            onPress={() => navigation.navigate('CosyInfo')}
-          />
-        </HStack>
-        <HStack
-          borderColor="gray.400"
-          borderTopWidth={0.5}
-          py="1"
-          alignItems="center"
-        >
-          <VStack flex={1}>
-            <Text>{selected} months seizure-free after stroke</Text>
-            <Text color="muted.400">
-              ({min}% - {max}%)
-            </Text>
-          </VStack>
-          <Heading size="md">{value}%</Heading>
-        </HStack>
-        <HStack
-          justifyContent="space-between"
-          borderColor="gray.400"
-          borderBottomWidth={0.5}
-          borderTopWidth={0.5}
-          py="3"
-          alignItems="center"
-        >
-          <Heading size="md" fontWeight="300" pl="2">
-            0
-          </Heading>
-          <Slider
-            w="75%"
-            defaultValue={selected}
-            minValue={0}
-            maxValue={24}
-            value={selected}
-            onChange={setSelected}
-          >
-            <Slider.Track>
-              <Slider.FilledTrack />
-            </Slider.Track>
-            <Slider.Thumb />
-          </Slider>
-          <Heading size="md" fontWeight="300" pr="2">
-            24
-          </Heading>
-        </HStack>
-      </View>
+      <PredictionPanel
+        title="Chance of seizures in the next year"
+        onInfo={() => navigation.navigate('CosyInfo')}
+        caption={`${selected} months seizure-free after stroke`}
+        min={min}
+        max={max}
+        value={value}
+        month={selected}
+        maxMonth={24}
+        onMonthChange={setSelected}
+      />
     </>
   )
 }

@@ -1,7 +1,15 @@
-import { ITextProps, Text } from 'native-base'
+import { StyleSheet, TextProps } from 'react-native'
 
-const B = ({ children }: ITextProps) => (
-  <Text fontWeight="bold">{children}</Text>
+import Text from './Text'
+
+const B = ({ children }: TextProps) => (
+  <Text style={styles.bold}>{children}</Text>
 )
+
+const styles = StyleSheet.create({
+  bold: {
+    fontWeight: '700',
+  },
+})
 
 export default B

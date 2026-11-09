@@ -1,16 +1,6 @@
 import React from 'react'
-import {
-  Heading,
-  Button,
-  HStack,
-  IconButton,
-  Icon,
-  ScrollView,
-  Box,
-  Modal,
-  Text,
-  View,
-} from 'native-base'
+import { StyleSheet, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useStatePersist } from 'use-state-persist'
 
 import { RootStackScreenProps } from '../navigation/types'
@@ -20,8 +10,15 @@ import Hr from '../components/Hr'
 import P from '../components/P'
 import { Model } from '../types'
 import Expand2 from '../components/Expand2'
+import Button from '../components/Button'
+import Content from '../components/Content'
+import Modal from '../components/Modal'
+import ScreenHeader from '../components/ScreenHeader'
+import Text from '../components/Text'
+import { colors } from '../theme'
 
 const Calculate = ({ navigation }: RootStackScreenProps<'Calculate'>) => {
+  const { bottom } = useSafeAreaInsets()
   const [termsVisible, setTermsVisible] = useStatePersist('terms', true)
 
   const [p1, setP1] = useStatePersist('p1', 0) // Severity of stroke
@@ -71,49 +68,40 @@ const Calculate = ({ navigation }: RootStackScreenProps<'Calculate'>) => {
   }
   return (
     <>
-      <Modal isOpen={termsVisible} onClose={() => setTermsVisible(false)}>
-        <Modal.Content>
-          <Modal.Header>Terms &amp; Conditions</Modal.Header>
-          <Modal.Body>
-            <P>
-              The SeLECT score is a prediction tool applicable to people who
-              suffered an ischemic stroke. Given some clinical characteristics,
-              it provides risk estimates of remote symptomatic seizures
-              occurring &gt; 7 days after stroke.
-            </P>
-            <P>
-              This tool is meant to be used only by medical professionals to
-              improve prognostication of late seizures after stroke. Its
-              clinical usefulness to influence medical decisions has not been
-              tested.
-            </P>
-            <P>
-              By accepting these terms, the user agrees on the nature and
-              purpose of this prediction tool.
-            </P>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              leftIcon={<Icon name="check" />}
-              onPress={() => setTermsVisible(false)}
-            >
-              Accept Terms &amp; Conditions
-            </Button>
-          </Modal.Footer>
-        </Modal.Content>
+      <Modal
+        isOpen={termsVisible}
+        onClose={() => setTermsVisible(false)}
+        title="Terms &amp; Conditions"
+        footer={
+          <Button icon="check" onPress={() => setTermsVisible(false)}>
+            Accept Terms &amp; Conditions
+          </Button>
+        }
+      >
+        <P>
+          The SeLECT score is a prediction tool applicable to people who
+          suffered an ischemic stroke. Given some clinical characteristics,
+          it provides risk estimates of remote symptomatic seizures
+          occurring &gt; 7 days after stroke.
+        </P>
+        <P>
+          This tool is meant to be used only by medical professionals to
+          improve prognostication of late seizures after stroke. Its
+          clinical usefulness to influence medical decisions has not been
+          tested.
+        </P>
+        <P>
+          By accepting these terms, the user agrees on the nature and
+          purpose of this prediction tool.
+        </P>
       </Modal>
 
-      <HStack bg="primary.500" safeAreaTop pl="50px" alignItems={'center'}>
-        <Heading color="white" flex={1} textAlign="center">
-          Calculate
-        </Heading>
-        <IconButton
-          icon={<Icon name="help-circle" color="white" size="xl" />}
-          onPress={() => navigation.navigate('BottomTab', { screen: 'About' })}
-        />
-      </HStack>
-      <ScrollView px="5" pb="5">
-        <Box safeAreaBottom>
+      <ScreenHeader
+        title="Calculate"
+        onHelp={() => navigation.navigate('BottomTab', { screen: 'About' })}
+      />
+      <Content style={styles.content}>
+        <View style={{ paddingBottom: bottom }}>
           <Label
             title="Acute symptomatic seizure"
             subTitle="≤ 7 days after stroke"
@@ -127,7 +115,7 @@ const Calculate = ({ navigation }: RootStackScreenProps<'Calculate'>) => {
             selected={p3}
             onPress={setP3}
           />
-          <Text color="gray.400">If "Yes" using SeLECT-ASyS model.</Text>
+          <Text style={styles.hint}>If "Yes" using SeLECT-ASyS model.</Text>
           <Hr />
           <Expand2
             showLeft={p3 === Model.SeLECT2}
@@ -145,7 +133,7 @@ const Calculate = ({ navigation }: RootStackScreenProps<'Calculate'>) => {
                   selected={earlyEEG}
                   onPress={setEarlyEEG}
                 />
-                <Text color="gray.400">
+                <Text style={styles.hint}>
                   If "No" using SeLECT2.0 model, if "Yes" using SeLECT-EEG
                   model.
                 </Text>
@@ -301,9 +289,9 @@ const Calculate = ({ navigation }: RootStackScreenProps<'Calculate'>) => {
             right={<View />}
           />
           <Button
-            mt="5"
             size="lg"
-            leftIcon={<Icon name="calculator" />}
+            icon="calculator"
+            style={styles.calculate}
             onPress={() => {
               navigation.navigate('Prediction', {
                 model,
@@ -314,12 +302,30 @@ const Calculate = ({ navigation }: RootStackScreenProps<'Calculate'>) => {
           >
             Calculate
           </Button>
-          <Text color="gray.300" textAlign="center" my="2">
+          <Text style={styles.total}>
             Total points: {score}
           </Text>
-        </Box>
-      </ScrollView>
+        </View>
+      </Content>
     </>
   )
 }
+const styles = StyleSheet.create({
+  content: {
+    paddingBottom: 20,
+    paddingTop: 0,
+  },
+  hint: {
+    color: colors.gray[400],
+  },
+  calculate: {
+    marginTop: 20,
+  },
+  total: {
+    color: colors.gray[300],
+    marginVertical: 8,
+    textAlign: 'center',
+  },
+})
+
 export default Calculate

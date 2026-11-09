@@ -1,12 +1,9 @@
 import React from 'react'
-import {
-  Heading,
-  HStack,
-  Icon,
-  IconButton,
-  Link,
-  ScrollView,
-} from 'native-base'
+import { StyleSheet } from 'react-native'
+import Content from '../components/Content'
+import Link from '../components/Link'
+import ScreenHeader from '../components/ScreenHeader'
+import SectionTitle from '../components/SectionTitle'
 
 import P from '../components/P'
 
@@ -14,22 +11,17 @@ import { RootStackScreenProps } from '../navigation/types'
 
 const CosyInfo = ({ navigation }: RootStackScreenProps<'CosyInfo'>) => (
   <>
-    <HStack bg="primary.500" safeAreaTop pr="50px" alignItems="center">
-      <IconButton
-        icon={<Icon name="arrow-left" color="white" size="xl" />}
-        onPress={() => {
-          if (navigation.canGoBack()) {
-            navigation.goBack()
-          } else {
-            navigation.navigate('Calculate')
-          }
-        }}
-      />
-      <Heading flex={1} textAlign="center" color="white">
-        Chance of seizures
-      </Heading>
-    </HStack>
-    <ScrollView px={5}>
+    <ScreenHeader
+      title="Chance of seizures"
+      onBack={() => {
+        if (navigation.canGoBack()) {
+          navigation.goBack()
+        } else {
+          navigation.navigate('Calculate')
+        }
+      }}
+    />
+    <Content style={styles.content}>
       <P>
         Chance of an occurrence of a seizure in the next year (COSY) was
         calculated calculated using the SeLECT model. Many regulators consider a
@@ -58,15 +50,19 @@ const CosyInfo = ({ navigation }: RootStackScreenProps<'CosyInfo'>) => (
         individualised approach considering the safety to drive in stroke
         surviors.
       </P>
-      <Heading size="md" py="2">
-        Reference manuscript:
-      </Heading>
+      <SectionTitle>Reference manuscript:</SectionTitle>
       <Link href="https://road-safety.transport.ec.europa.eu/system/files/2021-07/epilepsy_and_driving_in_europe_final_report_v2_en.pdf">
         Second European Working Group on Epilepsy and Driving. Epilepsy and
         driving in Europe. 2005.
       </Link>
-    </ScrollView>
+    </Content>
   </>
 )
+
+const styles = StyleSheet.create({
+  content: {
+    paddingVertical: 0,
+  },
+})
 
 export default CosyInfo

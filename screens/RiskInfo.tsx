@@ -1,5 +1,8 @@
 import React from 'react'
-import { Heading, HStack, Icon, IconButton, ScrollView } from 'native-base'
+import { StyleSheet } from 'react-native'
+import Content from '../components/Content'
+import Heading from '../components/Heading'
+import ScreenHeader from '../components/ScreenHeader'
 
 import P from '../components/P'
 
@@ -7,22 +10,17 @@ import { RootStackScreenProps } from '../navigation/types'
 
 const RiskInfo = ({ navigation }: RootStackScreenProps<'RiskInfo'>) => (
   <>
-    <HStack bg="primary.500" safeAreaTop pr="50px" alignItems="center">
-      <IconButton
-        icon={<Icon name="arrow-left" color="white" size="xl" />}
-        onPress={() => {
-          if (navigation.canGoBack()) {
-            navigation.goBack()
-          } else {
-            navigation.navigate('Calculate')
-          }
-        }}
-      />
-      <Heading flex={1} textAlign="center" color="white">
-        Risk of late seizures
-      </Heading>
-    </HStack>
-    <ScrollView px={5}>
+    <ScreenHeader
+      title="Risk of late seizures"
+      onBack={() => {
+        if (navigation.canGoBack()) {
+          navigation.goBack()
+        } else {
+          navigation.navigate('Calculate')
+        }
+      }}
+    />
+    <Content style={styles.content}>
       <P>
         SeLECT predicts the absolute cumulative risk of late seizures after
         stroke. Late seizures are defined as spontaneous seizures occurring &gt;
@@ -41,8 +39,14 @@ const RiskInfo = ({ navigation }: RootStackScreenProps<'RiskInfo'>) => (
         absolute risk in percent. The dotted line is the 95% confidence
         interval.
       </P>
-    </ScrollView>
+    </Content>
   </>
 )
+
+const styles = StyleSheet.create({
+  content: {
+    paddingVertical: 0,
+  },
+})
 
 export default RiskInfo

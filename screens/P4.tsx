@@ -1,5 +1,6 @@
 import React from 'react'
-import { Heading, HStack, Icon, IconButton, ScrollView } from 'native-base'
+import Content from '../components/Content'
+import ScreenHeader from '../components/ScreenHeader'
 
 import B from '../components/B'
 import P from '../components/P'
@@ -8,16 +9,11 @@ import { RootStackScreenProps } from '../navigation/types'
 
 const P4 = ({ navigation }: RootStackScreenProps<'P4'>) => (
   <>
-    <HStack bg="primary.500" safeAreaTop pr="50px" alignItems="center">
-      <IconButton
-        icon={<Icon name="arrow-left" color="white" size="xl" />}
-        onPress={() => navigation.navigate('Calculate')}
-      />
-      <Heading flex={1} textAlign="center" color="white">
-        Cortical involvement
-      </Heading>
-    </HStack>
-    <ScrollView px="5" py="3">
+    <ScreenHeader
+      title="Cortical involvement"
+      onBack={() => navigation.navigate('Calculate')}
+    />
+    <Content>
       <P>
         Cortical involvement is defined as{' '}
         <B>affection of the cerebral cortex by irreversible infarction</B> due
@@ -25,7 +21,7 @@ const P4 = ({ navigation }: RootStackScreenProps<'P4'>) => (
         the location and extent of irreversible infarction. MRI is preferred to
         CT.
       </P>
-    </ScrollView>
+    </Content>
   </>
 )
 
