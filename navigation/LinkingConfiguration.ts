@@ -40,6 +40,9 @@ const linking: LinkingOptions<RootStackParamList> = {
       EpileptiformActivity: {
         path: 'epileptiform-activity',
       },
+      SEEGPhenotypeInfo: {
+        path: 'seeg-phenotype',
+      },
       Risk: {
         path: 'risk-of-late-seizures',
       },
@@ -51,6 +54,9 @@ const linking: LinkingOptions<RootStackParamList> = {
           },
           Cosy: {
             path: 'cosy',
+          },
+          CEEG: {
+            path: 'ceeg',
           },
         },
       },

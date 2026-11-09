@@ -1,9 +1,6 @@
-import { BottomTabScreenProps as RNBottomTabScreenProps } from '@react-navigation/bottom-tabs'
-import {
-  CompositeScreenProps,
-  NavigatorScreenParams,
-} from '@react-navigation/native'
+import { NavigatorScreenParams } from '@react-navigation/native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { SEEGPhenotype } from '../models/cEEG'
 import { Model } from '../types'
 
 declare global {
@@ -24,16 +21,19 @@ export type RootStackParamList = {
   EarlyEEG: undefined
   RegionalSlowing: undefined
   EpileptiformActivity: undefined
+  SEEGPhenotypeInfo: undefined
   Prediction: NavigatorScreenParams<PredictionTabParamList> & {
     model: Model
     score: number
+    phenotype?: SEEGPhenotype
+    select20?: number
+    regionalSlowing?: number
+    epileptiformActivity?: number
   }
   Risk: undefined
-  Cosy: undefined
   RiskInfo: undefined
   CosyInfo: undefined
   BottomTab: NavigatorScreenParams<BottomTabParamList>
-  Terms: undefined
   NotFound: undefined
 }
 
@@ -45,20 +45,8 @@ export type BottomTabParamList = {
   Terms: undefined
 }
 
-export type BottomTabScreenProps<Screen extends keyof BottomTabParamList> =
-  CompositeScreenProps<
-    RNBottomTabScreenProps<BottomTabParamList, Screen>,
-    NativeStackScreenProps<RootStackParamList>
-  >
-
 export type PredictionTabParamList = {
   Risk: undefined
   Cosy: undefined
+  CEEG: undefined
 }
-
-export type PredictionTabScreenProps<
-  Screen extends keyof PredictionTabParamList
-> = CompositeScreenProps<
-  RNBottomTabScreenProps<PredictionTabParamList, Screen>,
-  NativeStackScreenProps<RootStackParamList>
->

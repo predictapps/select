@@ -1,16 +1,15 @@
-import React from 'react'
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native'
 
 import LinkingConfiguration from './LinkingConfiguration'
 import RootNavigator from './RootNavigator'
-import { theme } from '../NativeBase'
+import { colors } from '../theme'
 import { Platform } from 'react-native'
 
 const myTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: theme.colors.primary[500],
+    primary: colors.primary[500],
   },
 }
 

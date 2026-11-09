@@ -1,18 +1,33 @@
-import { HStack, ITextProps, Text } from 'native-base'
+import { StyleSheet, TextProps, View } from 'react-native'
 
-interface Props extends ITextProps {
+import Text from './Text'
+
+interface Props extends TextProps {
   number?: number
 }
 
 const Li: React.FC<Props> = ({ children, number }) => (
-  <HStack pl="5">
+  <View style={styles.item}>
     <Text>
-      <Text fontSize={number ? '14px' : '10px'}>
+      <Text style={number ? undefined : styles.bullet}>
         {number ? number + '.' : '●'}
       </Text>
     </Text>
-    <Text pl={1}>{children}</Text>
-  </HStack>
+    <Text style={styles.body}>{children}</Text>
+  </View>
 )
+
+const styles = StyleSheet.create({
+  item: {
+    flexDirection: 'row',
+    paddingLeft: 20,
+  },
+  bullet: {
+    fontSize: 10,
+  },
+  body: {
+    paddingLeft: 4,
+  },
+})
 
 export default Li

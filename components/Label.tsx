@@ -1,26 +1,42 @@
-import React from 'react'
-import { Heading, HStack, VStack, Text, IconButton, Icon } from 'native-base'
+import { StyleSheet, View } from 'react-native'
+
+import Heading from './Heading'
+import IconButton from './IconButton'
+import Text from './Text'
+import { colors } from '../theme'
 
 interface LabelProps {
-  letter?: string
   title: string
   subTitle?: string
   onPress?: () => void
 }
 
-const Label = ({ letter, title, subTitle = '', onPress }: LabelProps) => (
-  <HStack py="2">
-    <VStack flex={1}>
-      <Heading size="md" fontWeight={300}>
-        <Text fontWeight="600">{letter}</Text>
+const Label = ({ title, subTitle = '', onPress }: LabelProps) => (
+  <View style={styles.label}>
+    <View style={styles.text}>
+      <Heading size="md" style={styles.title}>
         {title}
       </Heading>
-      <Text color="gray.500">{subTitle}</Text>
-    </VStack>
-    {onPress && (
-      <IconButton icon={<Icon name="information" />} onPress={onPress} />
-    )}
-  </HStack>
+      <Text style={styles.subTitle}>{subTitle}</Text>
+    </View>
+    {onPress && <IconButton name="information" onPress={onPress} />}
+  </View>
 )
+
+const styles = StyleSheet.create({
+  label: {
+    flexDirection: 'row',
+    paddingVertical: 8,
+  },
+  text: {
+    flex: 1,
+  },
+  title: {
+    fontWeight: '300',
+  },
+  subTitle: {
+    color: colors.gray[500],
+  },
+})
 
 export default Label

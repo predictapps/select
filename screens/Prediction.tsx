@@ -1,13 +1,15 @@
-import React from 'react'
-import { Heading, IconButton, Icon, HStack } from 'native-base'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import {
   PredictionTabParamList,
   RootStackScreenProps,
 } from '../navigation/types'
+import Icon from '../components/Icon'
+import ScreenHeader from '../components/ScreenHeader'
 import Risk from '../screens/Risk'
 import Cosy from '../screens/Cosy'
+import CEEG from '../screens/CEEG'
+import { SEEGPhenotype } from '../models/cEEG'
 import { Model } from '../types'
 
 import COSY_SeLECT2 from '../models/COSY_SeLECT2'
@@ -41,20 +43,24 @@ const Prediction = ({
   navigation,
   route,
 }: RootStackScreenProps<'Prediction'>) => {
-  const { score, model } = route.params
-  let cosy = cosyModels[model]
-  let risk = riskModels[model]
+  const {
+    score,
+    model,
+    phenotype = SEEGPhenotype.Normal,
+    select20 = 0,
+    regionalSlowing = 0,
+    epileptiformActivity = 0,
+  } = route.params
+  const cosy = cosyModels[model]
+  const risk = riskModels[model]
   return (
     <>
-      <HStack safeAreaTop bg="primary.500" pr="50px">
-        <IconButton
-          icon={<Icon name="arrow-left" color="white" size="xl" />}
-          onPress={() => navigation.navigate('Calculate')}
-        />
-        <Heading alignSelf="center" flex={1} textAlign="center" color="white">
-          {modelName[model]} Score {score}
-        </Heading>
-      </HStack>
+      <ScreenHeader
+        title={`${modelName[model]} Score ${score}`}
+        onBack={() =>
+          navigation.navigate('Calculate', undefined, { pop: true })
+        }
+      />
 
       <BottomTab.Navigator
         screenOptions={{
@@ -85,6 +91,26 @@ const Prediction = ({
         >
           {() => <Cosy score={score} model={cosy} />}
         </BottomTab.Screen>
+        {model === Model.SeLECT_EEG && (
+          <BottomTab.Screen
+            name="CEEG"
+            options={{
+              tabBarLabel: 'cEEG yield',
+              tabBarIcon: ({ color }) => (
+                <Icon name="pulse" color={color} size="xl" />
+              ),
+            }}
+          >
+            {() => (
+              <CEEG
+                phenotype={phenotype}
+                select20={select20}
+                regionalSlowing={regionalSlowing}
+                epileptiformActivity={epileptiformActivity}
+              />
+            )}
+          </BottomTab.Screen>
+        )}
       </BottomTab.Navigator>
     </>
   )

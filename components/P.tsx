@@ -1,5 +1,15 @@
-import { ITextProps, Text } from 'native-base'
+import { StyleSheet, TextProps } from 'react-native'
 
-const P = ({ children }: ITextProps) => <Text py={1}>{children}</Text>
+import Text from './Text'
+
+const P = ({ children }: TextProps) => (
+  <Text style={styles.paragraph}>{children}</Text>
+)
+
+const styles = StyleSheet.create({
+  paragraph: {
+    paddingVertical: 4,
+  },
+})
 
 export default P
