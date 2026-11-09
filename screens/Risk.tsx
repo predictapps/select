@@ -30,7 +30,7 @@ interface RiskProps {
 }
 
 const Risk: React.FC<RiskProps> = ({ score, model }) => {
-  const line = React.useRef<typeof Line>()
+  const line = React.useRef<typeof Line>(undefined)
   const [selected, setSelected] = useState(12)
   const navigation = useNavigation()
   const [values, mins, maxs] = useMemo(

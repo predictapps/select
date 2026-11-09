@@ -1,0 +1,32 @@
+diff --git a/node_modules/@react-native-aria/interactions/src/useKeyboardDismisssable.ts b/node_modules/@react-native-aria/interactions/src/useKeyboardDismisssable.ts
+index 416b419..c19f647 100644
+--- a/node_modules/@react-native-aria/interactions/src/useKeyboardDismisssable.ts
++++ b/node_modules/@react-native-aria/interactions/src/useKeyboardDismisssable.ts
+@@ -56,17 +56,17 @@ export function useBackHandler({ enabled, callback }: IParams) {
+         document?.body?.removeEventListener?.('keyup', handleEscape);
+       };
+     } else {
+-      let backHandler = () => {
+-        callback();
+-        return true;
+-      };
+-      if (enabled) {
+-        BackHandler.addEventListener('hardwareBackPress', backHandler);
+-      } else {
+-        BackHandler.removeEventListener('hardwareBackPress', backHandler);
++      if (!enabled) {
++        return undefined;
+       }
+-      return () =>
+-        BackHandler.removeEventListener('hardwareBackPress', backHandler);
++      const subscription = BackHandler.addEventListener(
++        'hardwareBackPress',
++        () => {
++          callback();
++          return true;
++        }
++      );
++      return () => subscription.remove();
+     }
+   }, [enabled, callback]);
+ }

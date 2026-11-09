@@ -8,12 +8,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "select",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#91ac09"
-    },
-    "newArchEnabled": true,
     "updates": {
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/cc84318e-ccd7-4b4b-9ceb-a65c4361ea7b"
@@ -45,6 +39,24 @@
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
-    "plugins": []
+    "plugins": [
+      "expo-font",
+      "expo-status-bar",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash.png",
+          "imageWidth": 400,
+          "resizeMode": "contain",
+          "backgroundColor": "#91ac09",
+          "ios": {
+            "image": "./assets/images/splash.png",
+            "imageWidth": 870,
+            "resizeMode": "contain",
+            "backgroundColor": "#91ac09"
+          }
+        }
+      ]
+    ]
   }
 }

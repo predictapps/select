@@ -12,7 +12,7 @@ jobs:
       - name: 🏗 Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 22.x
           cache: yarn
 
       - name: 🏗 Setup Expo and EAS
@@ -25,7 +25,7 @@ jobs:
         run: yarn install
 
       - name: Publish update
-        run: eas update --auto
+        run: eas update --auto --environment production
 
       - name: 🚀 Build app
         run: eas build --platform=all --auto-submit --non-interactive --no-wait

@@ -40,7 +40,12 @@ const RootNavigator = () => (
       />
       <Stack.Screen name="RiskInfo" component={RiskInfo} />
       <Stack.Screen name="CosyInfo" component={CosyInfo} />
-      <Stack.Screen name="Prediction" component={Prediction} />
+      <Stack.Screen
+        name="Prediction"
+        component={Prediction}
+        // iOS 26+ swipes back from anywhere by default, which hijacks the slider
+        options={{ fullScreenGestureEnabled: false }}
+      />
       <Stack.Screen name="BottomTab" component={BottomTabNavigator} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} />
     </Stack.Group>
