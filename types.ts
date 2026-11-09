@@ -8,4 +8,5 @@ export interface ModelData {
   min: number[][]
   max: number[][]
   value: number[][]
+  supportedToMonth?: number[]
 }
